@@ -38,5 +38,23 @@ public class UserModelTest {
         assertEquals(user.getUserName(), userName, "Expected userName is different");
     }
 
+    @Test
+    @DisplayName("Create a second user using User model ")
+    void userModel_whenGivenCorrectArguments_ShouldReturnAnotherUser() {
+
+        // Arrange
+        _id = "789DDD";
+        userId = "ABC123";
+        userName = "AnotherTest";
+
+        // Act
+        user = new User(_id, userId, userName);
+
+        // Assert
+        assertEquals(user.get_id(), _id, "Expected _id is different");
+        assertEquals(user.getUserId(), userId, "Expected userId is different");
+        assertEquals(user.getUserName(), userName, "Expected userName is different");
+    }
+
 
 }
