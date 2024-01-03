@@ -1,6 +1,7 @@
 package com.goodhabits.habitsbackend.model;
 
 import com.goodhabits.habitsbackend.models.User;
+import org.bson.types.ObjectId;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -11,13 +12,13 @@ public class UserModelTest {
 
     User user;
 
-    String _id;
-    String userId;
+    ObjectId _id;
+    ObjectId userId;
     String userName;
 
     @BeforeEach
     void setUp() {
-
+        user = new User();
     }
 
     @Test
@@ -25,12 +26,14 @@ public class UserModelTest {
     void userModel_whenGivenCorrectArguments_ShouldReturnAUserInstance() {
 
        // Arrange
-        _id = "123ABC";
-        userId = "456DEF";
+        _id = new ObjectId("123ABC");
+        userId = new ObjectId("457DEF");
         userName = "Test";
 
         // Act
-        user = new User(_id, userId, userName);
+        user.set_id(_id);
+        user.setUserId(userId);
+        user.setUserName(userName);
 
         // Assert
         assertEquals(user.get_id(), _id, "Expected _id is different");
@@ -43,13 +46,14 @@ public class UserModelTest {
     void userModel_whenGivenCorrectArguments_ShouldReturnAnotherUser() {
 
         // Arrange
-        _id = "789DDD";
-        userId = "ABC123";
+        _id = new ObjectId("789DDD");
+        userId = new ObjectId( "ABC123");
         userName = "AnotherTest";
 
         // Act
-        user = new User(_id, userId, userName);
-
+        user.set_id(_id);
+        user.setUserId(userId);
+        user.setUserName(userName);
         // Assert
         assertEquals(user.get_id(), _id, "Expected _id is different");
         assertEquals(user.getUserId(), userId, "Expected userId is different");

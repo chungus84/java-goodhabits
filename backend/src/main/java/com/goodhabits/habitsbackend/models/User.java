@@ -2,15 +2,20 @@ package com.goodhabits.habitsbackend.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotEmpty;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document("user")
+import java.util.Date;
+import java.util.List;
+
+@Document(collection="users")
 public class User {
 
     @Id
     @JsonProperty("_id")
     private String _id;
+
 
     @JsonProperty("userId")
     @NotEmpty(message = "There must be a userId")
@@ -20,12 +25,33 @@ public class User {
     @NotEmpty(message =  "There must be a userName")
     private String userName;
 
-    public User(String _id, String userId, String userName) {
-        this._id = _id;
-        this.userId = userId;
-        this.userName = userName;
-
+    public Date getCreatedAt() {
+        return createdAt;
     }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    @JsonProperty("createdAt")
+    private Date createdAt;
+
+    @JsonProperty("habits")
+    private List<Object> habits;
+
+    public List<Object> getHabits() {
+        return habits;
+    }
+
+    public void setHabits(List<Object> habits) {
+        this.habits = habits;
+    }
+//    public User(String _id, String userId, String userName) {
+//        this._id = _id;
+//        this.userId = userId;
+//        this.userName = userName;
+//
+//    }
 
     public String get_id() {
         return _id;
