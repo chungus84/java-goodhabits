@@ -12,8 +12,8 @@ public class UserModelTest {
 
     User user;
 
-    ObjectId _id;
-    ObjectId userId;
+    String _id;
+    String userId;
     String userName;
 
     @BeforeEach
@@ -26,8 +26,8 @@ public class UserModelTest {
     void userModel_whenGivenCorrectArguments_ShouldReturnAUserInstance() {
 
        // Arrange
-        _id = new ObjectId("123ABC");
-        userId = new ObjectId("457DEF");
+        _id = "123ABC";
+        userId = "457DEF";
         userName = "Test";
 
         // Act
@@ -46,8 +46,8 @@ public class UserModelTest {
     void userModel_whenGivenCorrectArguments_ShouldReturnAnotherUser() {
 
         // Arrange
-        _id = new ObjectId("789DDD");
-        userId = new ObjectId( "ABC123");
+        _id = "789DDD";
+        userId = "ABC123";
         userName = "AnotherTest";
 
         // Act

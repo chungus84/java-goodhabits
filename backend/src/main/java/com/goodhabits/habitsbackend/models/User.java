@@ -37,13 +37,13 @@ public class User {
     private Date createdAt;
 
     @JsonProperty("habits")
-    private List<Object> habits;
+    private List<Habit> habits;
 
-    public List<Object> getHabits() {
+    public List<Habit> getHabits() {
         return habits;
     }
 
-    public void setHabits(List<Object> habits) {
+    public void setHabits(List<Habit> habits) {
         this.habits = habits;
     }
 //    public User(String _id, String userId, String userName) {
