@@ -5,12 +5,12 @@ import jakarta.validation.constraints.NotEmpty;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.DocumentReference;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
-import java.util.List;
 
-public class Habit {
+@Document(collection = "events")
+public class Event {
 
     @Id
     @JsonProperty("_id")
@@ -20,16 +20,16 @@ public class Habit {
     @NotEmpty(message = "Name must not be empty")
     private String name;
 
-    @JsonProperty("type")
-    @NotEmpty(message = "Type must not be empty")
-    private String type;
+    @JsonProperty("minutes")
+    @NotEmpty(message = "Minutes must not be empty")
+    private int minutes;
 
-    @JsonProperty("events")
-    @DocumentReference
-    private List<Event> events;
+    @JsonProperty("distance")
+    @NotEmpty(message = "Distance must not be empty")
+    private float distance;
 
-    @JsonProperty("createdAt")
-    private Date createdAt;
+    @JsonProperty("date")
+    private Date date;
 
 
     public String get_id() {
@@ -48,27 +48,27 @@ public class Habit {
         this.name = name;
     }
 
-    public String getType() {
-        return type;
+    public int getMinutes() {
+        return minutes;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setMinutes(int minutes) {
+        this.minutes = minutes;
     }
 
-    public List<Event> getEvents() {
-        return events;
+    public float getDistance() {
+        return distance;
     }
 
-    public void setEvents(List<Event> events) {
-        this.events = events;
+    public void setDistance(float distance) {
+        this.distance = distance;
     }
 
-    public Date getCreatedAt() {
-        return createdAt;
+    public Date getDate() {
+        return date;
     }
 
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
+    public void setDate(Date date) {
+        this.date = date;
     }
 }
