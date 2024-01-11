@@ -38,6 +38,7 @@ public class Event {
 
     @JsonProperty("date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NonNull
     private LocalDate date;
 
 
