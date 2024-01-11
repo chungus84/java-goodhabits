@@ -38,6 +38,7 @@ public class Habit {
 
     @JsonProperty("createdAt")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NonNull
     private LocalDate createdAt;
 
 

@@ -41,4 +41,25 @@ public class HabitTest {
 
     }
 
+    @DisplayName("Creates another habit entitiy")
+    @Test
+    void testHabitEntity_WHenGivenOtherValidDetails_ShouldAlsoCreateAHabit() {
+
+        // Arrange
+        String habitName = "Running";
+        String habitType = "cardio";
+        LocalDate date = LocalDate.parse("2023-11-15");
+
+        // Act
+        Habit newHabit = new Habit(habitName, habitType, date);
+
+        // Assert
+        assertEquals(habitName, newHabit.getName(), "Returned a habit name that was not expected");
+        assertEquals(habitType, newHabit.getType(), "Returned a habit type that was not expected");
+        assertEquals(date, newHabit.getCreatedAt(), "Returned a date that was not expected");
+        assertNull(newHabit.get_id(), "Returned _id was not null");
+        assertNull(newHabit.getEvents(), "Returned events was not null");
+
+    }
+
 }
