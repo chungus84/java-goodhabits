@@ -38,10 +38,34 @@ public class ProfileTest {
         profile.setUserName(userName);
         profile.setCreatedAt(date);
 
+
         // Arrange
         assertEquals(id, profile.get_id(), "Returned _id does not match expected result");
         assertEquals(userId, profile.getUserId(), "Returned userId does not match expected results");
         assertEquals(userName, profile.getUserName(), "Returned UserName does not match expected");
         assertEquals(date, profile.getCreatedAt(), "Returned createdAt date does not match expected");
+        assertNull(profile.getHabits(), "Returned habits is not null");
     }
+
+    @DisplayName("Creates another valid Profile")
+    @Test
+    void testProfileModel_WhenGivenOtherValidDetails_ShouldCreateAnotherProfile() {
+
+        // Arrange
+        String userId = "DEF456";
+        String userName = "OtherTest";
+        LocalDate date = LocalDate.parse("2023-12-15");
+
+        // Act
+        Profile secondProfile = new Profile(userId, userName, date);
+
+        // Assert
+        assertEquals(userId, secondProfile.getUserId(), "Returned UserId does not match the expected result");
+        assertEquals(userName, secondProfile.getUserName(), "Returned UserName does not match the expected result");
+        assertEquals(date, secondProfile.getCreatedAt(), "Returned createdAt does not match the expected result");
+        assertNull(secondProfile.get_id(), "Returned _id is not Null");
+        assertNull(secondProfile.getHabits(), "Returned habits is not null");
+
+    }
+
 }

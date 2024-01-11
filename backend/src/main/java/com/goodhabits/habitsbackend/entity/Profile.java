@@ -32,6 +32,7 @@ public class Profile {
     private String userName;
 
     @JsonProperty("createdAt")
+    @NonNull
     private LocalDate createdAt;
 
     @JsonProperty("habits")
