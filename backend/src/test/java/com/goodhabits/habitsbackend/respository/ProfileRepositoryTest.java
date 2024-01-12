@@ -26,6 +26,7 @@ public class ProfileRepositoryTest {
     @Autowired
     ProfileRepository profileRepository;
 
+
     private Profile profile1;
     private Profile profile2;
 
