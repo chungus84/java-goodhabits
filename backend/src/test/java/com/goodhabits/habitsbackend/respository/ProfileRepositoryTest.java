@@ -39,7 +39,7 @@ public class ProfileRepositoryTest {
         profile1.setCreatedAt(LocalDate.parse("2023-11-15"));
         profileRepository.save(profile1);
 
-        profile2 = new Profile(UUID.randomUUID().toString(), "AnotherTest", LocalDate.parse("2023-12-01"));
+        profile2 = new Profile("345", "AnotherTest", LocalDate.parse("2023-12-01"));
         profile2.set_id(UUID.randomUUID().toString());
         profileRepository.save(profile2);
     }
@@ -63,5 +63,26 @@ public class ProfileRepositoryTest {
         assertEquals(userId, storedProfile.get().getUserId(), "Returned userId is not what was expected");
         assertEquals("Test", storedProfile.get().getUserName(), "Returned UserName was not as expected");
         assertEquals(LocalDate.parse("2023-11-15"), storedProfile.get().getCreatedAt(), "Returned CreatedAt date was not as expected");
+        assertNull(storedProfile.get().getHabits(), "Habits are not null");
+
     }
+
+    @DisplayName("Should return AnotherTest profile")
+    @Test
+    void testFindByUserId_WhenGivenAnotherCorrectUserId_ShouldReturnAnotherProfile() {
+        //  Arrange
+
+        String userId = "345";
+
+        // Act
+        Optional<Profile> storedProfile = profileRepository.findByUserId(userId);
+
+        // Assert
+        assertEquals(userId, storedProfile.get().getUserId(), "Returned userId is not what was expected");
+        assertEquals("AnotherTest", storedProfile.get().getUserName(), "Returned UserName was not as expected");
+        assertEquals(LocalDate.parse("2023-12-01"), storedProfile.get().getCreatedAt(), "Returned CreatedAt date was not as expected");
+        assertNull(storedProfile.get().getHabits(), "Habits are not null");
+        assertNotNull(storedProfile.get().get_id(), "Profile _id should not be null");
+    }
+
 }
