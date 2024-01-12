@@ -11,6 +11,8 @@ import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
+import javax.swing.text.html.Option;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDate;
@@ -83,6 +85,19 @@ public class ProfileRepositoryTest {
         assertEquals(LocalDate.parse("2023-12-01"), storedProfile.get().getCreatedAt(), "Returned CreatedAt date was not as expected");
         assertNull(storedProfile.get().getHabits(), "Habits are not null");
         assertNotNull(storedProfile.get().get_id(), "Profile _id should not be null");
+    }
+    
+    @DisplayName("Should not return a user if userId is not valid")
+    @Test
+    void testFindByUserId_WhenGivenAnIdThatDoesNotExist_ShouldNotReturnAProfile() {
+        // Arrange
+        String userId = "555";
+
+        // Act
+        Optional<Profile> storedPorfile = profileRepository.findByUserId(userId);
+
+        // Arrange
+
     }
 
 }
