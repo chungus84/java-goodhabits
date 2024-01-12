@@ -99,7 +99,7 @@ public class ProfileRepositoryTest {
 
     @DisplayName("Creates a new Profile")
     @Test
-    void testCreateUser_WhenGivenValidDetails_ShouldCreateANewProfile() {
+    void testCreateProfile_WhenGivenValidDetails_ShouldCreateANewProfile() {
 
         // Arrange
         Profile newProfile = new Profile(UUID.randomUUID().toString(), "NewUser", LocalDate.parse("2023-12-02"));
