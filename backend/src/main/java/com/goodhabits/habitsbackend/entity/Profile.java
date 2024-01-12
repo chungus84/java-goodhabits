@@ -38,4 +38,14 @@ public class Profile {
     @JsonProperty("habits")
     private List<Habit> habits;
 
+    @Override
+    public String toString() {
+        return "Profile{" +
+                "_id='" + _id + '\'' +
+                ", userId='" + userId + '\'' +
+                ", userName='" + userName + '\'' +
+                ", createdAt=" + createdAt +
+                ", habits=" + habits +
+                '}';
+    }
 }
