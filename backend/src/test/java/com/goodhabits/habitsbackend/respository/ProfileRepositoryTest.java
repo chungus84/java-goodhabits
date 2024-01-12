@@ -2,10 +2,7 @@ package com.goodhabits.habitsbackend.respository;
 
 import com.goodhabits.habitsbackend.entity.Profile;
 import com.goodhabits.habitsbackend.repository.ProfileRepository;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -94,9 +91,29 @@ public class ProfileRepositoryTest {
         String userId = "555";
 
         // Act
-        Optional<Profile> storedPorfile = profileRepository.findByUserId(userId);
+        Optional<Profile> storedProfile = profileRepository.findByUserId(userId);
 
         // Arrange
+        assertFalse(storedProfile.isPresent(), "Should not return a Profile");
+    }
+
+    @DisplayName("Creates a new Profile")
+    @Test
+    void testCreateUser_WhenGivenValidDetails_ShouldCreateANewProfile() {
+
+        // Arrange
+        Profile newProfile = new Profile(UUID.randomUUID().toString(), "NewUser", LocalDate.parse("2023-12-02"));
+
+        // Act
+        profileRepository.save(newProfile);
+        Optional<Profile> storedProfile = profileRepository.findByUserId(newProfile.getUserId());
+
+        // Assert
+        assertEquals(newProfile.getUserId(), storedProfile.get().getUserId(), "Returned UserId that was not expected");
+        assertEquals(newProfile.getUserName(), storedProfile.get().getUserName(), "Returned UserName was not as expected");
+        assertEquals(newProfile.getCreatedAt(), storedProfile.get().getCreatedAt(), "Returned CreatedAt date was not as expected");
+        assertNull(storedProfile.get().getHabits(), "Returned habits should be null");
+        assertNotNull(storedProfile.get().get_id(), "Returned _id should not be null");
 
     }
 
