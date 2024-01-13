@@ -23,7 +23,7 @@ public class ProfileServiceImpl implements ProfileService{
 
     @Override
     public Profile saveProfile(Profile profile) {
-        if (!profileRepository.existsProfileByUserName(profile.getUserName())) return profileRepository.save(profile);
+        if (!profileRepository.existsByUserName(profile.getUserName())) return profileRepository.save(profile);
         else throw new EntityAlreadyExistsException(Profile.class, profile.getUserName());
     }
 

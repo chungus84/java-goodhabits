@@ -118,4 +118,32 @@ public class ProfileRepositoryTest {
 
     }
 
+    @DisplayName("Testing to see if a userName already exists")
+    @Test
+    void testExistsByUserName_WhenGivenAUserNameThatExists_ShouldReturnTrue() {
+
+        // Arrange
+        Profile dupeProfile = new Profile("456", "Test", LocalDate.parse("2023-11-11"));
+
+        // Act
+        boolean result = profileRepository.existsByUserName(dupeProfile.getUserName());
+
+        // Assert
+        assertTrue(result, "Expected userNAme does not exist in the database");
+    }
+
+    @DisplayName("Testing to see if a userName does not exist")
+    @Test
+    void testExistByUserName_WHenGivenAUserNameThatDoesNotExist_ShouldReturnFalse() {
+
+        // Arrange
+        Profile newProfile = new Profile("456","Testy", LocalDate.parse("2023-11-11"));
+
+        // Act
+        boolean result = profileRepository.existsByUserName(newProfile.getUserName());
+
+        // Arrange
+        assertFalse(result, "Should have returned false");
+    }
+
 }
