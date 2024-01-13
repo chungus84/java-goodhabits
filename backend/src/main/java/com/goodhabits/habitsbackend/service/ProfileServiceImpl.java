@@ -5,8 +5,10 @@ import com.goodhabits.habitsbackend.exceptions.EntityAlreadyExistsException;
 import com.goodhabits.habitsbackend.exceptions.EntityNotFoundException;
 import com.goodhabits.habitsbackend.repository.ProfileRepository;
 import lombok.AllArgsConstructor;
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -15,10 +17,16 @@ public class ProfileServiceImpl implements ProfileService{
 
     private ProfileRepository profileRepository;
 
+
     @Override
     public Profile getProfile(String id) {
-        Optional<Profile> profile = profileRepository.findByUserId(id);
+        Optional<Profile> profile = profileRepository.findByUserId(new ObjectId(id));
         return unwrapProfile(profile, id);
+    }
+
+    @Override
+    public List<Profile> getProfiles() {
+        return (List<Profile>) profileRepository.findAll();
     }
 
     @Override
