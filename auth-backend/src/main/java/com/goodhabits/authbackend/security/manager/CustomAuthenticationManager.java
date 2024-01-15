@@ -3,6 +3,7 @@ package com.goodhabits.authbackend.security.manager;
 import com.goodhabits.authbackend.entity.User;
 import com.goodhabits.authbackend.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,7 +16,9 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public class CustomAuthenticationManager implements AuthenticationManager {
 
+    @Autowired
     private UserService userService;
+    @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override

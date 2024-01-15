@@ -23,14 +23,14 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         AuthenticationFilter authenticationFilter = new AuthenticationFilter(customAuthenticationManager);
         authenticationFilter.setFilterProcessesUrl("/authenticate");
-        http
-                .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.POST, SecurityConstants.REGISTER_PATH).permitAll()
-                        .anyRequest().authenticated()
-                )
-                .oauth2ResourceServer((oauth2) -> oauth2.jwt(Customizer.withDefaults()))
-                .addFilter(authenticationFilter)
-                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+
+        http.csrf().disable()
+                .authorizeHttpRequests((authorize) -> authorize
+                .requestMatchers("/users/**").permitAll()
+                        .requestMatchers("/users/register").permitAll()
+
+                .anyRequest().authenticated())
+                .addFilter(authenticationFilter);
         return http.build();
     }
 }

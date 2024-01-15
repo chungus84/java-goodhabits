@@ -5,8 +5,11 @@ import com.goodhabits.authbackend.exceptions.EntityAlreadyExistsException;
 import com.goodhabits.authbackend.exceptions.EntityNotFoundException;
 import com.goodhabits.authbackend.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import org.bson.types.ObjectId;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -14,10 +17,16 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Override
     public User getUser(String id) {
         Optional<User> user =  userRepository.findById(id);
         return unwrapUser(user, id);
+    }
+
+    @Override
+    public List<User> getUsers() {
+        return (List<User>) userRepository.findAll();
     }
 
     @Override
@@ -28,7 +37,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User saveUser(User user) {
-        if (!userRepository.existsByUserName(user.getUserName())) return userRepository.save(user);
+        if (!userRepository.existsByUserName(user.getUserName())) {
+            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+            return userRepository.save(user);
+        }
         else throw new EntityAlreadyExistsException(User.class, user.getUserName());
     }
 
