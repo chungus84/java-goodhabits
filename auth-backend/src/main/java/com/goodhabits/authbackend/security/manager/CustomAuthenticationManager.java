@@ -1,7 +1,11 @@
 package com.goodhabits.authbackend.security.manager;
 
+import com.goodhabits.authbackend.entity.User;
+import com.goodhabits.authbackend.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -11,9 +15,15 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public class CustomAuthenticationManager implements AuthenticationManager {
 
+    private UserService userService;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        return null;
+        User user = userService.getUserByUserName(authentication.getName());
+        if (!bCryptPasswordEncoder.matches(authentication.getCredentials().toString(),user.getPassword())) {
+            throw new BadCredentialsException("You provided the wrong details");
+        }
+        return new UsernamePasswordAuthenticationToken(authentication.getName(), user.getPassword());
     }
 }

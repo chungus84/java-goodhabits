@@ -21,6 +21,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getUserByUserName(String userName) {
+        Optional<User> user = userRepository.findByUserName(userName);
+        return unwrapUser(user, "None");
+    }
+
+    @Override
     public User saveUser(User user) {
         if (!userRepository.existsByUserName(user.getUserName())) return userRepository.save(user);
         else throw new EntityAlreadyExistsException(User.class, user.getUserName());
